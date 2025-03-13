@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memahami SESSION Client Side</title>
+</head>
+<body>
+    <h1>Apa itu object localStorage?</h1>
+    <h2>Yang berfungsi sebagai client side session</h2>
+    <hr/>
+    Namamu = <span id="nama">Akan diganti dengan isi variable nama</span>
+    <hr/>
+    Input nama <input id="inputNama"/><button id="btnSimpanNama">Simpan</button>
+    
+    <hr/>
+    <h1>Mengenal OOP</h1>
+    <h2>Cara programmer memecahkan permasalahan ke dalam class-class yang terdiri dari fungsi dan data</h2>
+    <hr/>
+    Input nama <input id="inputNamaArray"/><br/>
+    Input sex 
+    <select id="inputSexArray">
+        <option value="Laki-laki">Laki-laki</option>
+        <option value="Perempuan">Perempuan</option>
+    </select>
+    <br/>
+    <button id="btnSimpanNamaArray">Simpan</button>
+
+    <script>
+        let nama = localStorage.getItem("nama") || "untitled";
+        let daftarNama = []; //list atau array yang berisi daftar Nama
+        let daftarSex = []; //list atau array yang berisi daftar Jenis Kelamin
+        let daftarManusia = []; //list atau array yang berisi daftar Manusia
+
+        // Manusia adalah class (atau tipe), yang itu tidak ada di dunia. Manusia adalah konsep
+        // yang real, yang ada, yang nyata adalah: Eko, Joko dan Bowo.
+        // Mereka disebut dengan instance/object/variabel, dan mereka direfer dengan this
+        // kalau di python self.
+
+        class Manusia{
+            constructor(nama, sex){
+                this.nama = nama;
+                this.sex = sex;
+            }
+        }
+
+        /*    render(){
+                // createElement <li> yang berisi nama dan sex
+        }*/
+
+        function setNama(nilaiNama){
+            document.getElementById("nama").innerText = nilaiNama;
+            localStorage.setItem("nama", nilaiNama);
+        }
+
+        setNama(nama);
+
+        document.getElementById("btnSimpanNama").addEventListener("click", function(){
+            console.log("Clicked");
+            let inputNama = document.getElementById("inputNama").value;
+            setNama(inputNama);
+        });
+
+        //array
+        document.getElementById("btnSimpanNamaArray").addEventListener("click", function(){
+            let inputNamaArray = document.getElementById("inputNamaArray").value;
+            let inputSexArray = document.getElementById("inputSexArray").value;
+            let manusia = new Manusia(inputNamaArray, inputSexArray);
+
+            daftarManusia.push(manusia);
+            document.getElementById("inputNamaArray").value = "";
+            document.getElementById("inputSexArray").value = "Laki-laki";
+            console.log(daftarManusia);
+
+            /* TUGAS:
+                1. Buat array daftarManusia yang menyimpan data manusia-manusia
+                2. Simpan daftarManusia ke localStorage
+                3. Tampilkan array/list daftarManusia di halaman html
+            */
+        });
+    </script>
+</body>
+</html>
